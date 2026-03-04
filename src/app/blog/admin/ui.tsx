@@ -96,10 +96,11 @@ export function BlogAdminForm() {
       </div>
 
       <div className="rounded-3xl border border-white/10 bg-zinc-900/30 p-6 text-sm text-zinc-300">
-        Blog posts are stored in <code className="text-zinc-100">src/data/blog.json</code>.
+        Blog posts are stored in <span className="text-zinc-100">Supabase</span>.
         <div className="mt-2 text-xs text-zinc-400">
-          On serverless deployments this may not persist (read-only filesystem). For the
-          demo, it&apos;s fine.
+          This admin form writes via the server using the service role key (not from the
+          browser). If posts aren&apos;t showing up, verify env vars and hit
+          <code className="mx-1 text-zinc-100">/api/health/supabase</code>.
         </div>
       </div>
     </div>
