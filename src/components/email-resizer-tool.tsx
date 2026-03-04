@@ -20,10 +20,12 @@ export function EmailResizerTool() {
     setError(null);
 
     try {
+      const baseEmail = direction === "longer" && result.trim() ? result : email;
+
       const res = await fetch("/api/email/resize", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, direction }),
+        body: JSON.stringify({ email: baseEmail, direction }),
       });
       const text = await res.text();
       const json = text ? (JSON.parse(text) as (Resp & { error?: string })) : null;
