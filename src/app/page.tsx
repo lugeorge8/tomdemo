@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { tools } from "@/lib/tools";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50">
@@ -17,12 +19,12 @@ export default function Home() {
             href="/tools"
             className="rounded-full bg-teal-500 px-4 py-2 text-sm font-semibold text-zinc-950 hover:opacity-90"
           >
-            View tools
+            View all tools
           </Link>
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl px-5 py-16">
+      <main className="mx-auto w-full max-w-5xl px-5 py-12">
         <div className="rounded-3xl border border-white/10 bg-zinc-900/40 p-7">
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">
             Demo
@@ -31,10 +33,28 @@ export default function Home() {
             Show how an assistant speeds up high-volume client work
           </div>
           <ul className="mt-5 list-disc space-y-2 pl-5 text-sm leading-6 text-zinc-300">
-            <li>Paste or upload a research report</li>
-            <li>Generate a client-ready summary</li>
-            <li>Compare against a prior report to see changes</li>
+            <li>Paste or upload a research report (PDF supported)</li>
+            <li>Generate investment themes</li>
+            <li>Compare against a prior report to see what changed</li>
           </ul>
+        </div>
+
+        <div className="mt-8">
+          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">
+            Tools
+          </div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            {tools.map((t) => (
+              <Link
+                key={t.href}
+                href={t.href}
+                className="rounded-3xl border border-white/10 bg-zinc-900/40 p-6 hover:bg-zinc-900/55"
+              >
+                <div className="text-lg font-semibold tracking-tight">{t.title}</div>
+                <div className="mt-2 text-sm leading-6 text-zinc-300">{t.desc}</div>
+              </Link>
+            ))}
+          </div>
         </div>
       </main>
     </div>
