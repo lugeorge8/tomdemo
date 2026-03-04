@@ -30,16 +30,33 @@ export function heuristicResize(
     return { subject, body: compact };
   }
 
-  // longer: add a small context paragraph + friendly close
-  const extra =
-    "\n\nQuick context: I’m reaching out to make sure we’re aligned and to keep things moving on your timeline.";
+  // longer: iterative expansion.
+  // Strategy: keep any signature/thanks at the bottom, and insert one extra
+  // paragraph per click.
+  const parts = body.split(/\n\nThanks,\n?/i);
+  const main = parts[0]?.trim() ?? body;
+  const hasThanks = parts.length > 1 || /\n\nThanks,\n?/i.test(body);
 
-  let expanded = body;
-  if (!expanded.includes("Quick context:")) expanded += extra;
+  const baseParas = main.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  const existingExtraCount = baseParas.filter((p) => /^Additional detail \(\d+\):/i.test(p)).length;
 
-  if (!/\b(thanks|thank you)\b/i.test(expanded)) {
-    expanded += "\n\nThanks,\n";
+  const insert: string[] = [];
+
+  // Ensure we have the first context paragraph.
+  if (!baseParas.some((p) => /^Quick context:/i.test(p))) {
+    insert.push(
+      "Quick context: I’m reaching out to make sure we’re aligned and to keep things moving on your timeline."
+    );
   }
+
+  // Add one new detail paragraph each click.
+  const nextN = existingExtraCount + 1;
+  insert.push(
+    `Additional detail (${nextN}): Here are a couple more specifics and the key takeaway, so it’s easy to decide next steps.`
+  );
+
+  const expandedMain = [...baseParas, ...insert].join("\n\n");
+  const expanded = hasThanks ? `${expandedMain}\n\nThanks,\n` : `${expandedMain}\n\nThanks,\n`;
 
   return { subject, body: expanded };
 }
