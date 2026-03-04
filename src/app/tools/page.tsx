@@ -7,11 +7,6 @@ const tools = [
     desc: "Paste/upload a report, summarize it, compare to a prior report.",
   },
   {
-    title: "Email resizer",
-    href: "/tools/email-resizer",
-    desc: "Make an email shorter/longer while keeping the same tone.",
-  },
-  {
     title: "RMD calculator",
     href: "/tools/rmd",
     desc: "Uniform Lifetime Table + compute RMD from age and assets.",
