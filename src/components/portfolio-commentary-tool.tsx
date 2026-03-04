@@ -76,6 +76,29 @@ export function PortfolioCommentaryTool() {
               />
             </label>
 
+            <label className="inline-flex cursor-pointer items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-200 hover:bg-white/10">
+              Upload PDF
+              <input
+                type="file"
+                accept="application/pdf,.pdf"
+                className="hidden"
+                onChange={async (e) => {
+                  const f = e.target.files?.[0];
+                  if (!f) return;
+                  const form = new FormData();
+                  form.append("file", f);
+                  const res = await fetch("/api/extract/pdf", {
+                    method: "POST",
+                    body: form,
+                  });
+                  const text = await res.text();
+                  const json = text ? (JSON.parse(text) as { text?: string; error?: string }) : null;
+                  if (!res.ok) throw new Error(json?.error ?? `PDF extract failed (${res.status})`);
+                  setCurrentText(json?.text ?? "");
+                }}
+              />
+            </label>
+
             <button
               disabled={!canRun || loading}
               onClick={generate}
