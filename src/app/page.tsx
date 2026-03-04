@@ -14,10 +14,10 @@ export default function Home() {
             </div>
           </div>
           <Link
-            href="/process-commentary"
+            href="/tools"
             className="rounded-full bg-teal-500 px-4 py-2 text-sm font-semibold text-zinc-950 hover:opacity-90"
           >
-            Portfolio commentary
+            View tools
           </Link>
         </div>
       </header>
