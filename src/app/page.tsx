@@ -33,9 +33,8 @@ export default function Home() {
             Show how an assistant speeds up high-volume client work
           </div>
           <ul className="mt-5 list-disc space-y-2 pl-5 text-sm leading-6 text-zinc-300">
-            <li>Paste or upload a research report (PDF supported)</li>
-            <li>Generate investment themes</li>
-            <li>Compare against a prior report to see what changed</li>
+            <li>Fast, repeatable workflows for a high-volume producer</li>
+            <li>Simple UI, clean outputs, and easy handoff</li>
           </ul>
         </div>
 
